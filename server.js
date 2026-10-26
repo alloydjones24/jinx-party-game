@@ -47,7 +47,8 @@ function state(room, recipient){
     }
     if(round.phase==='vote') roundView.voteChoices = roundView.answers.filter(a=>a.id!==recipient).map(a=>({id:a.id,name:a.name,text:a.text}));
   }
-  return {type:'state',room:{code:room.code,hostId:room.hostId,status:room.status,players:publicPlayers,round:roundView,meId:recipient,roundNumber:room.roundIndex+1,totalRounds:prompts.length}};
+  
+return {type:'state',meId:recipient,room:{code:room.code,hostId:room.hostId,status:room.status,players:publicPlayers,round:roundView,roundNumber:room.roundIndex+1,totalRounds:prompts.length}};
 }
 function broadcast(room){ for(const p of room.players) if(p.ws) send(p.ws,state(room,p.id)); }
 function scoreAndReveal(room){
